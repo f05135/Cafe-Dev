@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Café Dev - Código, Café e Comunidade</title>
+    <meta name="description" content="O ponto de encontro para desenvolvedores e amantes de tecnologia.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* =============================================
+         * CSS - FOLHA DE ESTILOS OTIMIZADA
+         * ============================================= */
+
+        /* --------------------------------------
+         * Variáveis e Estilos Globais
+         * -------------------------------------- */
+        :root {
+            --cor-fundo-escuro: #1a1a1a;
+            --cor-fundo-medio: #2c2c2c;
+            --cor-texto-claro: #f5f5f5;
+            --cor-destaque: #e8a03d;
+            --cor-destaque-hover: #f0b15e;
+            --cor-borda-cinza: #4a5568;
+            --cor-feedback-sucesso-fundo: #d4edda;
+            --cor-feedback-sucesso-texto: #155724;
+            --cor-feedback-erro-fundo: #f8d7da;
+            --cor-feedback-erro-texto: #721c24;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--cor-fundo-escuro);
+            color: var(--cor-texto-claro);
+            font-family: 'Poppins', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        /* --------------------------------------
+         * Layout e Componentes Principais
+         * -------------------------------------- */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Aplica o espaçamento padrão diretamente nas seções, removendo a necessidade de uma classe extra no HTML */
+        #sobre, #menu, #contato {
+            padding: 6rem 0;
+        }
+
+        .titulo-secao {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .titulo-secao h2 { font-size: 2.5rem; }
+        .titulo-secao p { font-size: 1.125rem; color: rgba(245, 245, 245, 0.8); }
+
+        /* Estilo aplicado diretamente aos spans dentro dos títulos, removendo a classe .destaque do HTML */
+        h1 span, h2 span {
+            color: var(--cor-destaque);
+        }
+
+        /* --------------------------------------
+         * Cabeçalho e Navegação
+         * -------------------------------------- */
+        .cabecalho {
+            background-color: rgba(26, 26, 26, 0.8);
+            backdrop-filter: blur(5px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .cabecalho-conteudo {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 5rem;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+        
+        .logo-icone {
+            width: 2rem;
+            height: 2rem;
+            color: var(--cor-destaque);
+        }
+
+        .navegacao-principal {
+            display: none; /* Escondido em telas pequenas, aparece via Media Query */
+        }
+        .navegacao-principal a, .links-rodape a {
+            transition: color 0.3s ease;
+        }
+        .navegacao-principal a:hover, .links-rodape a:hover {
+            color: var(--cor-destaque);
+        }
+        
+        /* --------------------------------------
+         * Seções Específicas
+         * -------------------------------------- */
+        #inicio {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background-image: linear-gradient(to right bottom, rgba(26, 26, 26, 0.8), rgba(44, 44, 44, 0.8)), url('https://images.unsplash.com/photo-1559925393-8be0ec4767c8?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+        }
+        #inicio h1 { font-size: 3.5rem; }
+
+        #sobre { background-color: var(--cor-fundo-medio); }
+        .sobre-conteudo { display: grid; gap: 3rem; align-items: center; }
+        .sobre-texto p { line-height: 1.7; margin-bottom: 1rem; }
+        .sobre-imagem img { border-radius: 0.5rem; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); }
+
+        .grade-cardapio { display: grid; gap: 2rem; }
+        .cartao-cardapio {
+            background-color: var(--cor-fundo-medio);
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease-in-out;
+            display: flex;
+            flex-direction: column;
+        }
+        .cartao-cardapio:hover { transform: translateY(-8px); }
+        .cartao-cardapio img { width: 100%; height: 200px; object-fit: cover; }
+        .cartao-conteudo { padding: 1.5rem; display: flex; flex-direction: column; flex-grow: 1; }
+        .cartao-conteudo h3 { color: var(--cor-destaque); font-size: 1.25rem; margin-bottom: 0.5rem; }
+        .cartao-conteudo p { flex-grow: 1; margin-bottom: 1rem; }
+        .cartao-preco { font-size: 1.125rem; font-weight: 600; }
+
+        /* --------------------------------------
+         * Formulário
+         * -------------------------------------- */
+        #contato { background-color: var(--cor-fundo-medio); }
+        .formulario-contato-container { max-width: 700px; margin: 0 auto; }
+        .grupo-formulario { margin-bottom: 1.5rem; }
+        .grupo-formulario label { display: block; margin-bottom: 0.5rem; }
+
+        /* Agrupando estilos comuns aos campos de formulário */
+        .campo-formulario, .area-texto-formulario {
+            width: 100%;
+            background-color: var(--cor-fundo-escuro);
+            border: 1px solid var(--cor-borda-cinza);
+            border-radius: 0.375rem;
+            padding: 0.75rem 1rem;
+            color: var(--cor-texto-claro);
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+        }
+        .campo-formulario:focus, .area-texto-formulario:focus {
+            outline: none;
+            border-color: var(--cor-destaque);
+            box-shadow: 0 0 0 2px var(--cor-destaque);
+        }
+        .area-texto-formulario { resize: vertical; }
+
+        .botao-enviar {
+            background-color: var(--cor-destaque);
+            color: var(--cor-fundo-escuro);
+            font: 700 1rem 'Poppins', sans-serif;
+            padding: 0.75rem 2rem;
+            border-radius: 0.375rem;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .botao-enviar:hover { background-color: var(--cor-destaque-hover); }
+
+        /* Agrupando classes de feedback do formulário */
+        #feedback-formulario {
+            padding: 1rem;
+            border-radius: 0.375rem;
+            margin-top: 1.5rem;
+            display: none; /* Começa escondido */
+        }
+        #feedback-formulario.sucesso {
+            display: block;
+            background-color: var(--cor-feedback-sucesso-fundo);
+            color: var(--cor-feedback-sucesso-texto);
+            border: 1px solid var(--cor-feedback-sucesso-texto);
+        }
+        #feedback-formulario.erro {
+            display: block;
+            background-color: var(--cor-feedback-erro-fundo);
+            color: var(--cor-feedback-erro-texto);
+            border: 1px solid var(--cor-feedback-erro-texto);
+        }
+        
+        /* --------------------------------------
+         * Rodapé
+         * -------------------------------------- */
+         .rodape { border-top: 1px solid #2d3748; padding: 4rem 0 2rem 0; }
+         .grade-rodape { display: grid; gap: 3rem; margin-bottom: 2.5rem; text-align: center; }
+         .coluna-rodape h3 { color: var(--cor-destaque); font-size: 1.25rem; margin-bottom: 1rem; }
+         .coluna-rodape p, .coluna-rodape a { color: rgba(245, 245, 245, 0.7); line-height: 1.7; }
+         .links-rodape a { display: block; margin-bottom: 0.5rem; }
+         .rodape-final { border-top: 1px solid #2d3748; padding-top: 2rem; text-align: center; font-size: 0.875rem; color: rgba(245, 245, 245, 0.5); }
+         .rodape-final p { margin-bottom: 0.5rem; }
+         .rodape-final a { text-decoration: underline; }
+        
+        /* --------------------------------------
+         * Design Responsivo (Media Queries)
+         * -------------------------------------- */
+        @media (min-width: 768px) {
+            .navegacao-principal { display: flex; gap: 1rem; }
+            .sobre-conteudo, .grade-cardapio { grid-template-columns: repeat(2, 1fr); }
+            .grade-formulario-contato { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+            .grade-rodape { grid-template-columns: repeat(3, 1fr); text-align: left; }
+        }
+
+        @media (min-width: 1024px) {
+            .grade-cardapio { grid-template-columns: repeat(3, 1fr); }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="cabecalho">
+        <div class="container cabecalho-conteudo">
+            <a href="#inicio" class="logo">
+                <svg class="logo-icone" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                <span>Café Dev</span>
+            </a>
+            <nav class="navegacao-principal">
+                <a href="#inicio">Início</a>
+                <a href="#sobre">Sobre Nós</a>
+                <a href="#menu">Cardápio</a>
+                <a href="#contato">Contato</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="inicio">
+            <div class="container">
+                <h1>Código, Café e <span>Comunidade</span>.</h1>
+                <p>O ponto de encontro para desenvolvedores, designers e criativos.</p>
+            </div>
+        </section>
+
+        <section id="sobre">
+            <div class="container">
+                <div class="sobre-conteudo">
+                    <div class="sobre-texto">
+                        <h2>Bem-vindo ao <span>Café Dev</span></h2>
+                        <p>Nascemos de uma paixão dupla: tecnologia e café de alta qualidade. O Café Dev é mais do que uma simples cafeteria; é um hub para a comunidade tech, um espaço projetado para fomentar a colaboração e o aprendizado.</p>
+                        <p>Aqui você encontra Wi-Fi de alta velocidade, tomadas em todas as mesas e um ambiente que inspira produtividade e criatividade. Seja para trabalhar em um projeto, ou simplesmente recarregar as energias, este é o seu lugar.</p>
+                    </div>
+                    <div class="sobre-imagem">
+                        <img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?q=80&w=1937&auto=format&fit=crop" alt="Interior aconchegante do Café Dev">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="menu">
+            <div class="container">
+                <div class="titulo-secao">
+                    <h2>Nosso Cardápio</h2>
+                    <p>Compilado com os melhores ingredientes para o seu dia.</p>
+                </div>
+                <div class="grade-cardapio">
+                    <div class="cartao-cardapio">
+                        <img src="https://media.istockphoto.com/id/664313320/pt/foto/espresso-coffee-cup-with-beans-on-vintage-table.jpg?s=612x612&w=0&k=20&c=uasISoMIuuE7gLEDgpm8jTWHtOzCOY061Asdz36w33g=" alt="Espresso Dev">
+                        <div class="cartao-conteudo">
+                            <h3>Espresso Dev</h3>
+                            <p>Um shot intenso e puro de café, o combustível essencial para longas sessões de codificação.</p>
+                            <div class="cartao-preco">R$ 8,00</div>
+                        </div>
+                    </div>
+                    <div class="cartao-cardapio">
+                        <img src="https://media.istockphoto.com/id/1480359250/pt/foto/warm-dirty-chai-latte.jpg?s=612x612&w=0&k=20&c=PMrBdEvfKjJcdT9l9TiTsCG7Xrag_AI7GGedlyDrwqk=" alt="Cappuccino Binário">
+                        <div class="cartao-conteudo">
+                            <h3>Cappuccino Binário</h3>
+                            <p>Perfeita harmonia entre café, leite vaporizado e espuma cremosa. Simples e eficiente como um código binário.</p>
+                            <div class="cartao-preco">R$ 12,50</div>
+                        </div>
+                    </div>
+                    <div class="cartao-cardapio">
+                        <img src="https://media.istockphoto.com/id/1092652322/pt/foto/caffe-latte-macchiato-coffee-layered-with-milk.jpg?s=612x612&w=0&k=20&c=ct127k8iV5Spb24RhVAr-C5nefI6bEzSFAGtAJ5_CvE=" alt="Latte Full-Stack">
+                        <div class="cartao-conteudo">
+                            <h3>Latte Full-Stack</h3>
+                            <p>Uma bebida completa com café espresso e uma generosa porção de leite vaporizado, para quem encara qualquer desafio.</p>
+                            <div class="cartao-preco">R$ 14,00</div>
+                        </div>
+                    </div>
+                    <div class="cartao-cardapio">
+                        <img src="https://media.istockphoto.com/id/1227438080/pt/foto/homemade-cheese-bread-traditional-brazilian-snack-in-a-heart-shaped-basket-on-a-rustic-kitchen.jpg?s=612x612&w=0&k=20&c=wDZJxTPSvAtsDxKLfoQVmQbYEZCnk_L68yT63X4eCDU=" alt="Pão de Queijo 'Hello World'">
+                        <div class="cartao-conteudo">
+                            <h3>Pão de Queijo 'Hello World'</h3>
+                            <p>A introdução perfeita ao nosso menu. Quentinho, crocante por fora e macio por dentro. Impossível comer um só.</p>
+                            <div class="cartao-preco">R$ 7,50</div>
+                        </div>
+                    </div>
+                    <div class="cartao-cardapio">
+                        <img src="https://media.istockphoto.com/id/953747804/pt/foto/iced-mocha-coffee-with-whip-cream-summer-drinking-times-coffee-beans-rustic-textured-wooden.jpg?s=612x612&w=0&k=20&c=EGN9REzxzrup-wDvcsfLA3_5qQf1RCYgwSCbed6wIlc=" alt="Mocha 'Dark Mode'">
+                        <div class="cartao-conteudo">
+                            <h3>Mocha 'Dark Mode'</h3>
+                            <p>Nosso latte com um toque de calda de chocolate meio amargo. Ideal para os amantes do tema escuro.</p>
+                            <div class="cartao-preco">R$ 16,00</div>
+                        </div>
+                    </div>
+                    <div class="cartao-cardapio">
+                        <img src="https://media.istockphoto.com/id/905563616/pt/foto/preparing-chocolate-chip-cookies.jpg?s=612x612&w=0&k=20&c=-XYuxVs041wykcsj8P7J_q4bli7MxEYjJ-ZCNxoyv-s=" alt="Cookie Compilado">
+                        <div class="cartao-conteudo">
+                            <h3>Cookie Compilado</h3>
+                            <p>Cookie com gotas de chocolate, perfeitamente 'compilado' em nosso forno. Sem erros, apenas sabor.</p>
+                            <div class="cartao-preco">R$ 9,00</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contato">
+            <div class="container">
+                <div class="formulario-contato-container">
+                    <div class="titulo-secao">
+                        <h2>Entre em Contato</h2>
+                        <p>Dúvidas, sugestões ou parcerias? Fale conosco.</p>
+                    </div>
+                    <form id="formulario-contato" novalidate>
+                        <div class="grade-formulario-contato">
+                            <div class="grupo-formulario">
+                                <label for="nome">Nome</label>
+                                <input type="text" id="nome" name="nome" class="campo-formulario" required>
+                            </div>
+                            <div class="grupo-formulario">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" name="email" class="campo-formulario" required>
+                            </div>
+                        </div>
+                        <div class="grupo-formulario">
+                            <label for="mensagem">Sua Mensagem</label>
+                            <textarea id="mensagem" name="mensagem" rows="5" class="area-texto-formulario" required></textarea>
+                        </div>
+                        <div style="text-align: center;">
+                            <button type="submit" class="botao-enviar">Enviar Mensagem</button>
+                        </div>
+                    </form>
+                    <div id="feedback-formulario" role="alert"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="rodape">
+        <div class="container">
+            <div class="grade-rodape">
+                <div class="coluna-rodape">
+                    <h3>Café Dev</h3>
+                    <p>Hub fictício para demonstrar desenvolvimento web. Projeto acadêmico para fins exclusivamente educativos.</p>
+                </div>
+                <div class="coluna-rodape">
+                    <h3>Links Rápidos</h3>
+                    <nav class="links-rodape">
+                        <a href="#inicio">Início</a>
+                        <a href="#sobre">Sobre Nós</a>
+                        <a href="#menu">Cardápio</a>
+                        <a href="#contato">Contato</a>
+                    </nav>
+                </div>
+                <div class="coluna-rodape">
+                    <h3>Informações Acadêmicas</h3>
+                    <p>
+                        <strong>Discente:</strong> Felipe Marcon de Mesquita<br>
+                        <strong>Instituição:</strong> IFMT<br>
+                        <strong>Disciplina:</strong> Programação Web Front‑End<br>
+                        <strong>Turma:</strong> 2025/1
+                    </p>
+                </div>
+            </div>
+            <div class="rodape-final">
+                <p>Distribuído sob a Licença MIT. © 2025 Felipe Marcon de Mesquita.</p>
+                <p>Contato: <a href="mailto:f.marcon@estudante.ifmt.edu.br">f.marcon@estudante.ifmt.edu.br</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Executa o script apenas após o carregamento completo do HTML.
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const formulario = document.getElementById('formulario-contato');
+            if (!formulario) return; // Encerra se o formulário não existir
+
+            const feedbackDiv = document.getElementById('feedback-formulario');
+            const campoNome = document.getElementById('nome');
+            const campoEmail = document.getElementById('email');
+            const campoMensagem = document.getElementById('mensagem');
+
+            formulario.addEventListener('submit', (evento) => {
+                evento.preventDefault(); // Previne o recarregamento da página.
+
+                // Reinicia o feedback antes de cada nova validação.
+                feedbackDiv.innerHTML = '';
+                feedbackDiv.className = '';
+                
+                let listaDeErros = [];
+                const formatoEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+                // Validações
+                if (campoNome.value.trim() === '') {
+                    listaDeErros.push('O campo nome é obrigatório.');
+                }
+                if (campoEmail.value.trim() === '') {
+                    listaDeErros.push('O campo email é obrigatório.');
+                } else if (!formatoEmail.test(campoEmail.value.trim())) {
+                    listaDeErros.push('Por favor, insira um e-mail válido.');
+                }
+                if (campoMensagem.value.trim().length < 10) {
+                    listaDeErros.push('A mensagem deve ter pelo menos 10 caracteres.');
+                }
+
+                // Exibe o resultado
+                if (listaDeErros.length > 0) {
+                    feedbackDiv.classList.add('erro');
+                    const listaHtml = '<ul>' + listaDeErros.map(erro => `<li>${erro}</li>`).join('') + '</ul>';
+                    feedbackDiv.innerHTML = listaHtml;
+                } else {
+                    feedbackDiv.classList.add('sucesso');
+                    feedbackDiv.innerHTML = '<p>Mensagem enviada com sucesso! ✅</p>';
+                    formulario.reset(); // Limpa o formulário
+                }
+            });
+        });
+    </script>
+</body>
+</html>
